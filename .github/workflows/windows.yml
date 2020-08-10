@@ -1,0 +1,39 @@
+name: Windows
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+env:
+  BUILD_TYPE: Release
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+    if: "!contains(github.event.head_commit.message, '[skip ci]') && !contains(github.event.head_commit.message, '[ci skip]')"
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install Conan package manager.
+      run: |
+        pip3 install -U wheel setuptools
+        pip3 install -U conan requests
+        pip3 install -U conan_package_tools
+
+    - name: configure
+      run: cmake -Bbuild -DCMAKE_INSTALL_PREFIX="$HOME/.local"
+
+    - name: build
+      run: cmake --build build --config "$env:BUILD_TYPE" -j4
+
+    - name: run tests
+      run: |
+        cd build
+        ctest -C "$env:BUILD_TYPE" -VV
+
+    - name: install project
+      run: cmake --build build --target install --config Release

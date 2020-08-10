@@ -1,0 +1,14 @@
+---
+# We'll use defaults from the Google style.
+# See http://clang.llvm.org/docs/ClangFormat.html for help.
+Language:      Cpp
+BasedOnStyle:  Google
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
+DerivePointerAlignment: false
+IncludeCategories:
+  - Regex:           '^<.*'
+    Priority:        1
+  - Regex:           '.*'
+    Priority:        2
+...
