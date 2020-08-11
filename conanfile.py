@@ -6,7 +6,7 @@ class CppProjectConan(ConanFile):
     generators = "cmake"
 
     options = {"with_tests": [True, False]}
-    default_options = {"with_tests": False}
+    default_options = {"with_tests": True}
 
     _cmake = None
 
