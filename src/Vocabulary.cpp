@@ -23,6 +23,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 #include "Vocabulary.h"
 
+#include <algorithm>
 #include <iostream>
 #include <iterator>
 #include <utility>
