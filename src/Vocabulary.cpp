@@ -30,9 +30,9 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace freq {
 
-auto is_alpha = [](unsigned char c) { return std::isalpha(c); };
-auto is_not_alpha = [](unsigned char c) { return std::isalpha(c); };
-auto to_lower = [](unsigned char c) { return std::tolower(c); };
+const auto is_alpha = [](unsigned char c) { return std::isalpha(c); };
+const auto is_not_alpha = [](unsigned char c) { return std::isalpha(c); };
+const auto to_lower = [](unsigned char c) { return std::tolower(c); };
 
 void Vocabulary::Parse(std::string_view text) {
   for (const auto* it = text.begin(); it != text.end(); ++it) {
