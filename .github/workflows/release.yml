@@ -89,7 +89,7 @@ jobs:
       if: ${{ runner.os != 'Windows' }}
       run: |
         rm -rf build
-        tar -cvzf $HOME/artifact.tar.gz $HOME/.local/bin/freq
+        tar -cvzf $HOME/artifact.tar.gz -C $HOME/.local/bin freq
 
     - name: upload artifacts
       uses: actions/upload-artifact@v2
