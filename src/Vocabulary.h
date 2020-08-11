@@ -1,5 +1,5 @@
 /**
-Frequency vocabulary application
+Frequency vocabulary header
 Copyright © 2020 Alexander Fedorov
 
 Permission is hereby granted, free of charge, to any person obtaining
@@ -21,43 +21,28 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 */
-#include <fstream>
 #include <iostream>
+#include <map>
+#include <set>
+#include <string>
 #include <string_view>
 
-#include "Vocabulary.h"
+namespace freq {
 
-void usage(std::string_view name) {
-  std::cout << "Usage: " << name << ": <in_file.txt> <out_file.txt>\n";
-}
+class Vocabulary {
+ public:
+  Vocabulary() = default;
 
-int main(int argc, char** argv) {
-  // Check arguments count
-  if (argc != 3) {
-    usage(argv[0]);
-    std::cout << "Error: wrong argument number: " << argc << '\n';
-    exit(1);
-  }
+  void Parse(std::string_view text);
 
-  std::ifstream ifs(argv[1]);
-  // Check if the file has been opened successfully.
-  if (!ifs.is_open()) {
-    usage(argv[0]);
-    std::cout << "Error: can't open input file: " << argv[1] << '\n';
-    exit(2);
-  }
-  auto voc = freq::Vocabulary{};
-  // Read data into Vocabulary
-  ifs >> voc;
+  [[nodiscard]] auto map() const { return (map_); }
 
-  std::ofstream ofs(argv[2]);
-  // Check if the file has been opened successfully.
-  if (!ofs.is_open()) {
-    usage(argv[0]);
-    std::cout << "Error: can't open output file: " << argv[2] << '\n';
-    exit(3);
-  }
-  // Write data from Vocabulary
-  ofs << voc << std::flush;
-  return 0;
-}
+ private:
+  std::map<int, std::set<std::string>, std::greater<>> map_{};
+  void InsertWord(std::string word);
+};
+
+std::istream& operator>>(std::istream& is, freq::Vocabulary& voc);
+std::ostream& operator<<(std::ostream& os, const freq::Vocabulary& voc);
+
+}  // namespace freq
