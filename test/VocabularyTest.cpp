@@ -31,8 +31,8 @@ The time has come, the Walrus said,
 to talk of many things...
 )";
 
-constexpr auto text_out = R"(
-    2 the
+constexpr auto text_out =
+R"(    2 the
     1 come
     1 has
     1 many
