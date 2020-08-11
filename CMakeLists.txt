@@ -9,7 +9,7 @@ set(CMAKE_VERBOSE_MAKEFILE OFF)
 
 site_name(HOSTNAME)
 
-option(ENABLE_TESTING "Enable Test Builds" OFF)
+option(ENABLE_TESTING "Enable Test Builds" ON)
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake)
 
