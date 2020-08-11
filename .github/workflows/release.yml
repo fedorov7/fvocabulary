@@ -6,7 +6,7 @@ on:
       - 'v*'
 
 env:
-  PROJECT_NAME: "cpp-template"
+  PROJECT_NAME: "freq"
   BUILD_TYPE: Release
 
 jobs:
@@ -75,21 +75,21 @@ jobs:
         cd build
         ctest -C "$env:BUILD_TYPE" -VV
 
-    # for a release not containing directly the source code, replace the files archived
-    # with the actual files needed (i.e. *.lib/*.a and *.h(pp))
+    - name: install
+      run: cmake --build build --config "$env:BUILD_TYPE" --target install
 
     - name: generate archive (Windows)
       if: ${{ runner.os == 'Windows' }}
       run: |
         rmdir -r -fo build
-        7z a -tzip $HOME/artifact.zip *
+        7z a -tzip $HOME/artifact.zip $HOME/.local/bin/freq
 
 
     - name: generate archive
       if: ${{ runner.os != 'Windows' }}
       run: |
         rm -rf build
-        tar -cvzf $HOME/artifact.tar.gz .
+        tar -cvzf $HOME/artifact.tar.gz $HOME/.local/bin/freq
 
     - name: upload artifacts
       uses: actions/upload-artifact@v2
